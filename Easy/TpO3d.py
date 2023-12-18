@@ -1266,10 +1266,61 @@ class View:
 #%%
 # gui
 class Size:
+    def __new__(cls, *args, **kwargs):
+        return gui.Size(*args, **kwargs)
+    def __init__(self, width: t.Union[int,float] = 0, height: t.Union[int,float] = 0):
+        pass
+    @property
+    def width(self)->float:
+        pass
+    @width.setter
+    def width(self, width: float):
+        pass
+    @property
+    def height(self)->float:
+        pass
+    @height.setter
+    def height(self, height: float):
+        pass
     pass
 class Rect:
-    def __new__(cls, x: float = 0.0, y: float = 0.0, width: float = 0.0, height: float = 0.0):
-        return gui.Rect(x, y, width, height)
+    def __new__(cls, *args, **kwargs):
+        return gui.Rect(*args, **kwargs)
+    def __init__(self, x: t.Union[int,float] = 0, y: t.Union[int,float] = 0, width: t.Union[int,float] = 0, height: t.Union[int,float] = 0):
+        pass
+    def get_bottom(self)->int:
+        pass
+    def get_left(self)->int:
+        pass
+    def get_right(self)->int:
+        pass
+    def get_top(self)->int:
+        pass
+    @property
+    def x(self)->int:
+        pass
+    @x.setter
+    def x(self, x: int):
+        pass
+    @property
+    def y(self)->int:
+        pass
+    @y.setter
+    def y(self, y: int):
+        pass
+    @property
+    def width(self)->int:
+        pass
+    @width.setter
+    def width(self, width: int):
+        pass
+    @property
+    def height(self)->int:
+        pass
+    @height.setter
+    def height(self, height: int):
+        pass
+    
 class Color:
     def __new__(cls, r: float = 1.0, g: float = 1.0, b: float = 1.0, a: float = 1.0):
         return gui.Color(r, g, b, a)
@@ -1355,8 +1406,10 @@ class Widget:
     def background_color(self, color: Color):
         pass
 class Margins:
-    def __new__(cls, left: int = 0, top: int = 0, right: int = 0, bottom: int = 0):
-        return gui.Margins(left, top, right, bottom)
+    def __new__(cls, *args, **kwargs):
+        return gui.Margins(*args, **kwargs)
+    def __init__(self, left: int = 0, top: int = 0, right: int = 0, bottom: int = 0):
+        pass
     def lazyMarginsEM(win:Window, left_or_all: float, top: float = 0, right: float = 0, bottom: float = 0):
         if top is None or right is None or bottom is None:
             val = win.theme.font_size * left_or_all
@@ -1370,12 +1423,12 @@ class Theme:
     def font_size(self, size: int):
         pass
 class Open3DScene:
-    class LightingProfile(IntEnum):
-        HARD_SHADOWS = 0
-        DARK_SHADOWS = 1
-        MED_SHADOWS = 2
-        SOFT_SHADOWS = 3
-        NO_SHADOWS = 4
+    class LightingProfile:
+        HARD_SHADOWS: Open3DScene.LightingProfile = rendering.Open3DScene.LightingProfile.HARD_SHADOWS
+        DARK_SHADOWS: Open3DScene.LightingProfile = rendering.Open3DScene.LightingProfile.DARK_SHADOWS
+        MED_SHADOWS: Open3DScene.LightingProfile = rendering.Open3DScene.LightingProfile.MED_SHADOWS
+        SOFT_SHADOWS: Open3DScene.LightingProfile = rendering.Open3DScene.LightingProfile.SOFT_SHADOWS
+        NO_SHADOWS: Open3DScene.LightingProfile = rendering.Open3DScene.LightingProfile.NO_SHADOWS
         @property
         def value(self)->int:
             pass
@@ -1466,14 +1519,14 @@ class Open3DScene:
     
     
 class SceneWidget(Widget):
-    class Controls(IntEnum):
-        ROTATE_CAMERA = 0
-        ROTATE_CAMERA_SPHERE = 1
-        FLY = 2
-        ROTATE_SUN = 3
-        ROTATE_IBL = 4
-        ROTATE_MODEL = 5
-        PICK_POINTS = 6
+    class Controls:
+        ROTATE_CAMERA: SceneWidget.Controls = gui.SceneWidget.Controls.ROTATE_CAMERA
+        ROTATE_CAMERA_SPHERE: SceneWidget.Controls = gui.SceneWidget.Controls.ROTATE_CAMERA_SPHERE
+        FLY: SceneWidget.Controls = gui.SceneWidget.Controls.FLY
+        ROTATE_SUN: SceneWidget.Controls = gui.SceneWidget.Controls.ROTATE_SUN
+        ROTATE_IBL: SceneWidget.Controls = gui.SceneWidget.Controls.ROTATE_IBL
+        ROTATE_MODEL: SceneWidget.Controls = gui.SceneWidget.Controls.ROTATE_MODEL
+        PICK_POINTS: SceneWidget.Controls = gui.SceneWidget.Controls.PICK_POINTS
         @property
         def value(self)->int:
             pass
@@ -1488,20 +1541,7 @@ class SceneWidget(Widget):
         """初始化一個 SceneWidget，通常會用 window.add_child(sceneWidget)，其中 window 是 Window
         - 接著通常是初始化一個 Open3dScene，然後設定 sceneWidget.scene = open3dScene
         """
-        pass
-    '''
-set_on_key(self: open3d.cpu.pybind.visualization.gui.SceneWidget, arg0: Callable[[open3d.cpu.pybind.visualization.gui.KeyEvent], int]) → None
-Sets a callback for key events. This callback is passed a KeyEvent object. The callback must return EventCallbackResult.IGNORED, EventCallbackResult.HANDLED, or EventCallbackResult.CONSUMED.
-
-set_on_mouse(self: open3d.cpu.pybind.visualization.gui.SceneWidget, arg0: Callable[[open3d.cpu.pybind.visualization.gui.MouseEvent], int]) → None
-Sets a callback for mouse events. This callback is passed a MouseEvent object. The callback must return EventCallbackResult.IGNORED, EventCallbackResult.HANDLED, or EventCallbackResult.CONSUMED.
-
-set_on_sun_direction_changed(self: open3d.cpu.pybind.visualization.gui.SceneWidget, arg0: Callable[[numpy.ndarray[numpy.float32[3, 1]]], None]) → None
-Callback when user changes sun direction (only called in ROTATE_SUN control mode). Called with one argument, the [i, j, k] vector of the new sun direction
-
-set_view_controls(self: open3d.cpu.pybind.visualization.gui.SceneWidget, arg0: open3d.cpu.pybind.visualization.gui.SceneWidget.Controls) → None
-Sets mouse interaction, e.g. ROTATE_OBJ    
-    '''
+        pass    
     def set_on_key(self, callback: t.Callable[[KeyEvent], int]):
         """Sets a callback for key events. This callback is passed a KeyEvent object. The callback must return EventCallbackResult.IGNORED, EventCallbackResult.HANDLED, or EventCallbackResult.CONSUMED."""
         pass
@@ -1523,21 +1563,22 @@ Sets mouse interaction, e.g. ROTATE_OBJ
     def scene(self, scene: Open3DScene):
         pass
     
-
-
-        
-class FontDescription:
-    def __new__(cls, typeface: str = 'sans-serif') -> Self:
-        return gui.FontDescription(typeface)
     
+class FontDescription:
+    def __new__(cls, *args, **kwargs):
+        return gui.FontDescription(*args, **kwargs)
+    def __init__(self, typeface: str = 'sans-serif'):                                       
+        pass    
     def add_typeface_for_language(self,typeface: str, arg1:str):
         ''' arg1: zh_all, zh ，但 zh_all 一個 window 會佔 200Mb，而 zh 是常用的 2500 字，只佔 50 Mb
         - typeface: 如果是 windows 可設定 "c:/windows/fonts/mingliu.ttc" # 新細明體
         '''
         pass
 class Label(Widget):
-    def __new__(cls,title:str) -> Self:
-        return gui.Label(title)            
+    def __new__(cls, *args, **kwargs) -> Label:
+        return gui.Label(*args, **kwargs)
+    def __init__(self, text: str = ""):
+        pass
 class Menu:
     def __new__(cls) -> Menu:
         return gui.Menu()        
@@ -1553,6 +1594,25 @@ class Menu:
         pass
     def add_menu(self, label: str, menu: Menu):
         pass   
+class Layout1D(Widget):
+    def __new__(cls, *args, **kwargs) -> Layout1D:
+        return gui.Layout1D(*args, **kwargs)   
+    def add_fixed(self, size: t.Union[int, float]):
+        """Adds a fixed amount of empty space to the layout"""
+        pass
+    def add_stretch(self):
+        """Adds empty space to the layout that will take up as much extra space as there is available in the layout"""
+        pass
+class Vert(Layout1D):
+    def __new__(cls, *args, **kwargs) -> Vert:
+        return gui.Vert(*args, **kwargs)
+    def __init__(self, spacing: t.Union[int,float] = 0.0, margins: Margins = Margins()):
+        pass
+class Horiz(Layout1D):
+    def __new__(cls, *args, **kwargs) -> Horiz:
+        return gui.Horiz(*args, **kwargs)    
+    def __init__(self, spacing: t.Union[int,float] = 0.0, margins: Margins = Margins()):
+        pass
 class CollapsableVert(Widget):
     def __new__(cls, text: str, spacing: float = 0.0, margins: Margins = Margins()) -> Self:
         return gui.CollapsableVert(text, spacing, margins)
@@ -1560,6 +1620,18 @@ class Button(Widget):
     def __new__(cls, text: str) -> Self:
         return gui.Button(text)
     def set_on_clicked(self, callback: t.Callable[[], None]):
+        pass
+class ListView(Widget):
+    def __new__(cls,*args, **kwargs) -> ListView:
+        return gui.ListView(*args, **kwargs)
+    def set_items(self, items: t.List[str]):
+        """Sets the list to display the list of items provided"""
+        pass
+    def set_max_visible_items(self, max_visible_items: int):
+        """Limit the max visible items shown to user. Set to negative number will make list extends vertically as much as possible, otherwise the list will at least show 3 items and at most show num items."""
+        pass
+    def set_on_selection_changed(self, callback: t.Callable[[str, bool], None]):
+        """Calls f(new_val, is_double_click) when user changes selection"""
         pass
 class Dialog:
     pass
