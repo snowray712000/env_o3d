@@ -1,6 +1,4 @@
-from __future__ import annotations
-from tkinter import BUTT, RIGHT
-from turtle import st # Menu 使用 Menu ，當然，也可以直接使用 Self
+from __future__ import annotations # Menu 使用 Menu ，當然，也可以直接使用 Self
 """
 for python auto completed in VSCode
 author: @snowray712000
@@ -970,7 +968,66 @@ class VoxelGrid:
 #%%
 # rendering
 class Camera:
-    """rendering.Camera"""
+    """rendering.Camera"""    
+    class FovType:
+        Vertical: Camera.FovType = rendering.Camera.FovType.Vertical        
+        Horizontal: Camera.FovType = rendering.Camera.FovType.Horizontal
+        @property
+        def value(self)->Camera.FovType:
+            pass
+        @value.setter
+        def value(self, value: Camera.FovType):
+            pass
+    class Projection:
+        Perspective: Camera.Projection = rendering.Camera.Projection.Perspective
+        Ortho: Camera.Projection = rendering.Camera.Projection.Ortho
+        @property
+        def value(self)->Camera.Projection:
+            pass
+        @value.setter
+        def value(self, value: Camera.Projection):
+            pass
+    def copy_from(self, camera: Camera):
+        """Copies the settings from the camera passed as the argument into this camera"""
+        pass
+    def get_far(self)->float:
+        """Returns the distance from the camera to the far plane"""
+        pass
+    def get_field_of_view(self)->float:
+        """Returns the field of view of camera, in degrees. Only valid if it was passed to set_projection()."""
+        pass
+    def get_field_of_view_type(self)->Camera.FovType:
+        """Returns the field of view type. Only valid if it was passed to set_projection()."""
+        pass
+    def get_model_matrix(self)->npt.NDArray[np.float32[4,4]]:
+        """Returns the model matrix of the camera"""
+        pass
+    def get_near(self)->float:
+        """Returns the distance from the camera to the near plane"""
+        pass
+    def get_projection_matrix(self)->npt.NDArray[np.float32[4,4]]:
+        """Returns the projection matrix of the camera"""
+        pass
+    def get_view_matrix(self)->npt.NDArray[np.float32[4,4]]:
+        """Returns the view matrix of the camera"""
+        pass
+    def look_at(self, center: npt.NDArray[np.float32[3,1]], eye: npt.NDArray[np.float32[3,1]], up: npt.NDArray[np.float32[3,1]]):
+        """Sets the position and orientation of the camera: look_at(center, eye, up)"""
+        pass
+    def set_projection(self, *args, **kwargs):
+        pass
+    def set_projection1(self, field_of_view: float, aspect_ratio: float, far_plane: float, field_of_view_type: Camera.FovType):
+        """Sets a perspective projection. set_projection(field_of_view, aspect_ratio, far_plane, field_of_view_type)"""
+        self.set_projection(field_of_view, aspect_ratio, far_plane, field_of_view_type)
+    def set_projection2(self, projection_type: Camera.Projection, left: float, right: float, bottom: float, top: float, near: float, far: float):
+        """Sets the camera projection via a viewing frustum. set_projection(projection_type, left, right, bottom, top, near, far)"""
+        self.set_projection(projection_type, left, right, bottom, top, near, far)
+    def set_projection3(self, intrinsics: npt.NDArray[np.float64[3,3]], near_plane: float, far_plane: float, image_width: float, image_height: float):
+        """Sets the camera projection via intrinsics matrix. set_projection(intrinsics, near_place, far_plane, image_width, image_height)"""
+        self.set_projection(intrinsics, near_plane, far_plane, image_width, image_height)
+    def unpromect(self, x: float, y: float, z: float, view_width: float, view_height: float)->npt.NDArray[np.float32[3,1]]:
+        """Takes the (x, y, z) location in the view, where x, y are the number of pixels from the upper left of the view, and z is the depth value. Returns the world coordinate (x’, y’, z’)."""
+        pass            
     pass
 class ColorGrding:
     pass
@@ -1008,8 +1065,11 @@ class MaterialRecord:
     '''
     def __new__(cls):
         return rendering.MaterialRecord()
-    pass
-
+    def lazyMaterialRecord()->MaterialRecord:
+        r1 = MaterialRecord()
+        r1.shader = "defaultLit"
+        return r1
+    
     @property
     def absorption_color(self)->npt.NDArray[np.float32[4,1]]:
         pass
@@ -1085,8 +1145,6 @@ class MaterialRecord:
     @base_metallic.setter
     def base_metallic(self, base_metallic: float):
         pass
-    
-    
     @property
     def shader(self)->str:
         pass
@@ -1168,23 +1226,24 @@ class Open3DScene:
 class Renderer:
     pass
 
-class Scene:    
-    class UPDATE_POINTS_FLAG(IntEnum):
-        UPDATE_POINTS_FLAG = 1
-        UPDATE_NORMALS_FLAG2 = 2
-        UPDATE_COLORS_FLAG = 4
-        UPDATE_UV0_FLAG = 8
+class Scene:        
+    UPDATE_POINTS_FLAG:int = rendering.Scene.UPDATE_POINTS_FLAG
+    UPDATE_NORMALS_FLAG:int = rendering.Scene.UPDATE_NORMALS_FLAG
+    UPDATE_COLORS_FLAG:int = rendering.Scene.UPDATE_COLORS_FLAG
+    UPDATE_UV0_FLAG:int = rendering.Scene.UPDATE_UV0_FLAG
         
-    class GroundPlane(IntEnum):
-        XY = 1
-        XZ = 0
-        YZ = 2
+    class GroundPlane:
+        XY: Scene.GroundPlane = rendering.Scene.GroundPlane.XY
+        XZ: Scene.GroundPlane = rendering.Scene.GroundPlane.XZ
+        YZ: Scene.GroundPlane = rendering.Scene.GroundPlane.YZ
         @property
-        def value(self)->int:
+        def value(self)->Scene.GroundPlane:
             pass
         @value.setter
-        def value(self, value: int):
+        def value(self, value: Scene.GroundPlane):
             pass
+        
+            
     def add_camera(self, name:str, camera: Camera):
         pass
     def add_directional_light(self, name: str, 
@@ -1348,12 +1407,12 @@ class Widget:
         def width(self)->int:
             pass
 
-    class EventCallbackResult(IntEnum):
-        IGNORED = 0
+    class EventCallbackResult:
+        IGNORED: Widget.EventCallbackResult = gui.Widget.EventCallbackResult.IGNORED
         """Event handler ignored the event, widget will handle event normally"""
-        HANDLED = 1
+        HANDLED: Widget.EventCallbackResult = gui.Widget.EventCallbackResult.HANDLED
         """Event handler handled the event, but widget will still handle the event normally. This is useful when you are augmenting base functionality"""
-        CONSUMED = 2
+        CONSUMED: Widget.EventCallbackResult = gui.Widget.EventCallbackResult.CONSUMED
         """Event handler consumed the event, event handling stops, widget will not handle the event. This is useful when you are replacing functionality"""
         @property
         def value(self)->int:
@@ -1361,8 +1420,7 @@ class Widget:
         @value.setter
         def value(self, value: int):
             pass
-    
-
+        
     def add_child(self, child: Widget):
         pass    
     def calc_preferred_size(self,arg0: LayoutContext, constraints: Constraints)->Size:
@@ -1467,7 +1525,7 @@ class Open3DScene:
         pass
     def set_view_size(self, width: int, height: int):
         pass
-    def set_show_axes(self, show: bool):
+    def show_axes(self, show: bool):
         pass
     def show_geometry(self, name: str, show: bool):
         pass
@@ -1542,10 +1600,10 @@ class SceneWidget(Widget):
         - 接著通常是初始化一個 Open3dScene，然後設定 sceneWidget.scene = open3dScene
         """
         pass    
-    def set_on_key(self, callback: t.Callable[[KeyEvent], int]):
+    def set_on_key(self, callback: t.Callable[[KeyEvent], Widget.EventCallbackResult]):
         """Sets a callback for key events. This callback is passed a KeyEvent object. The callback must return EventCallbackResult.IGNORED, EventCallbackResult.HANDLED, or EventCallbackResult.CONSUMED."""
         pass
-    def set_on_mouse(self, callback: t.Callable[[MouseEvent], int]):
+    def set_on_mouse(self, callback: t.Callable[[MouseEvent], Widget.EventCallbackResult]):
         """Sets a callback for mouse events. This callback is passed a MouseEvent object. The callback must return EventCallbackResult.IGNORED, EventCallbackResult.HANDLED, or EventCallbackResult.CONSUMED."""
         pass
     def set_on_sun_direction_changed(self, callback: t.Callable[[npt.NDArray[np.float32[3,1]]], None]):
@@ -1614,8 +1672,17 @@ class Horiz(Layout1D):
     def __init__(self, spacing: t.Union[int,float] = 0.0, margins: Margins = Margins()):
         pass
 class CollapsableVert(Widget):
-    def __new__(cls, text: str, spacing: float = 0.0, margins: Margins = Margins()) -> Self:
-        return gui.CollapsableVert(text, spacing, margins)
+    def __new__(cls, *args, **kwargs) -> CollapsableVert:
+        return gui.CollapsableVert(*args, **kwargs)    
+    def __init__(cls, text: str, spacing: float = 0.0, margins: Margins = Margins()) -> CollapsableVert:
+        pass
+    def set_is_open(self, is_open: bool):
+        """Sets to collapsed (False) or open (True). Requires a call to Window.SetNeedsLayout() afterwards, unless calling before window is visible"""
+        pass
+    def get_is_open(self)->bool:
+        """Check if widget is open."""
+        pass
+    
 class Button(Widget):
     def __new__(cls, text: str) -> Self:
         return gui.Button(text)
