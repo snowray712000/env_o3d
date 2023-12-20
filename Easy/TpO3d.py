@@ -1741,6 +1741,52 @@ class FontDescription:
         - typeface: 如果是 windows 可設定 "c:/windows/fonts/mingliu.ttc" # 新細明體
         '''
         pass
+class Slider(Widget):
+    class Type:
+        DOUBLE: Slider.Type = gui.Slider.Type.DOUBLE
+        INT: Slider.Type = gui.Slider.Type.INT
+        @property
+        def value(self)->Slider.Type:
+            pass
+        @value.setter
+        def value(self, value: Slider.Type):
+            pass
+    
+    def __new__(cls, *args, **kwargs) -> Slider:
+        return gui.Slider(*args, **kwargs)
+    def __init__(self, type: Type):        
+        pass
+    def set_limits(self, min: float, max: float):
+        """Sets the minimum and maximum values for the slider"""
+        pass
+    def set_on_value_changed(self, callback: t.Callable[[float], None]):
+        """Sets f(new_value) which is called with a Float when user changes widget’s value"""
+        pass
+    @property
+    def double_value(self)->float:
+        """Slider value (double)"""
+        pass
+    @double_value.setter
+    def double_value(self, double_value: float):
+        """Slider value (double)"""
+        pass
+    @property
+    def int_value(self)->int:
+        """Slider value (int)"""
+        pass
+    @int_value.setter
+    def int_value(self, int_value: int):
+        """Slider value (int)"""
+        pass
+    @property
+    def get_maximum_value(self)->float:
+        """The maximum value number can contain (read-only, use set_limits() to set)"""
+        pass
+    @property
+    def get_minimum_value(self)->float:
+        """The minimum value number can contain (read-only, use set_limits() to set)"""
+        pass
+                 
 class Label(Widget):
     def __new__(cls, *args, **kwargs) -> Label:
         return gui.Label(*args, **kwargs)
