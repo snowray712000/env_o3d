@@ -117,8 +117,64 @@ class Vector4iVector(IntVector):
         return o3d.utility.Vector4iVector(*args, **kwargs)
     def __init__(self, arg0: t.Union[npt.NDArray[np.int32],Vector4iVector]):
         pass    
+class Matrix3dVector:
+    '''Convert float64 numpy array of shape (n, 3, 3) to Open3D format.'''
+    def __new__(cls, *args, **kwargs):
+        return o3d.utility.Matrix3dVector(*args, **kwargs)
+    def __init__(self, arg0: t.Optional[t.Union[Matrix3dVector,t.Iterable]]):
+        pass
+    def append(self, x: npt.NDArray[np.float64[3,3]]):
+        """Add an item to the end of the list"""
+        pass
+    def clear(self):
+        """Clear the contents"""
+        pass
+    def count(self, x: npt.NDArray[np.float64[3,3]])->int:
+        """Return the number of times x appears in the list"""
+        pass
+    def extend(self, L: t.Union[Matrix3dVector,t.Iterable]):
+        """Extend the list by appending all the items in the given list"""
+        pass
+    def insert(self, i: int, x: npt.NDArray[np.float64[3,3]]):
+        """Insert an item at a given position."""
+        pass
+    def pop(self,i :t.Optional[int])->npt.NDArray[np.float64[3,3]]:
+        """Remove and return the last item or at index i"""
+        pass
+    def remove(self, x: npt.NDArray[np.float64[3,3]]):
+        """Remove the first item from the list whose value is x. It is an error if there is no such item."""
+        pass
 
-
+class Matrix4dVector:
+    '''
+classopen3d.utility.Matrix4dVector
+Convert float64 numpy array of shape (n, 4, 4) to Open3D format.
+    '''
+    def __new__(cls, *args, **kwargs):
+        return o3d.utility.Matrix4dVector(*args, **kwargs)
+    def __init__(self, arg0: t.Optional[t.Union[Matrix4dVector,t.Iterable]]):
+        pass
+    def append(self, x: npt.NDArray[np.float64[4,4]]):
+        """Add an item to the end of the list"""
+        pass
+    def clear(self):
+        """Clear the contents"""
+        pass
+    def count(self, x: npt.NDArray[np.float64[4,4]])->int:
+        """Return the number of times x appears in the list"""
+        pass
+    def extend(self, L: t.Union[Matrix4dVector,t.Iterable]):
+        """Extend the list by appending all the items in the given list"""
+        pass
+    def insert(self, i: int, x: npt.NDArray[np.float64[4,4]]):
+        """Insert an item at a given position."""
+        pass
+    def pop(self,i :t.Optional[int])->npt.NDArray[np.float64[4,4]]:
+        """Remove and return the last item or at index i"""
+        pass
+    def remove(self, x: npt.NDArray[np.float64[4,4]]):
+        """Remove the first item from the list whose value is x. It is an error if there is no such item."""
+        pass
 #%%
 # geometry
 class AxisAlignedBoundingBox:
@@ -585,7 +641,47 @@ class PointCloud(Geometry3D):
             - input (open3d.geometry.PointCloud) – The input point cloud.
             - search_param (open3d.geometry.KDTreeSearchParam, optional, default=KDTreeSearchParamKNN with knn = 30) – The KDTree search parameters for neighborhood search.
         """        
-        pass       
+        pass
+    @property
+    def colors(self)-> Vector3dVector:
+        """
+        RGB colors of points.
+        - Type: float64 array of shape (num_points, 3), range [0, 1] , use numpy.asarray() to access data"""
+        pass
+    @colors.setter
+    def colors(self, value: Vector3dVector):
+        pass
+    @property
+    def covariances(self)->Matrix3dVector:
+        """
+        Points covariances.
+        - Type: float64 array of shape (num_points, 3, 3), use numpy.asarray() to access data
+        """
+        pass
+    @covariances.setter
+    def covariances(self, value: Matrix3dVector):
+        pass
+    @property
+    def normals(self)->Vector3dVector:
+        """
+        Points normals.
+        - Type: float64 array of shape (num_points, 3), use numpy.asarray() to access data
+        """
+        pass
+    @normals.setter
+    def normals(self, value: Vector3dVector):
+        pass
+    @property
+    def points(self)->Vector3dVector:
+        """
+        Points coordinates.
+        - Type: float64 array of shape (num_points, 3), use numpy.asarray() to access data
+        """
+        pass
+    @points.setter
+    def points(self, value: Vector3dVector):
+        pass
+
     
 
 class RGBDImage:
@@ -604,6 +700,18 @@ class TriangleMesh(Geometry3D):
         pass
     def __init__(self, vertices: Vector3dVector, triangles: Vector3iVector):
         pass
+    @staticmethod
+    def lazyToPointCloud(mesh: TriangleMesh)->PointCloud:
+        ''' 轉換成點雲
+        - 筆記: o3d.geometry.TriangleMesh 本來就沒有這個函式，所以不能寫成 self.lazyToPointCloud(self): 
+        '''
+        pc = PointCloud()
+        pc.points = mesh.vertices
+        if mesh.has_vertex_colors():
+            pc.colors = mesh.vertex_colors
+        if mesh.has_vertex_normals():
+            pc.normals = mesh.vertex_normals
+        return pc
     def cluster_connected_triangles(self)->t.Tuple[IntVector,t.List[int],DoubleVector]:
         """Function that clusters connected triangles, i.e., triangles that are connected via edges are assigned the same cluster index. This function returns an array that contains the cluster index per triangle, a second array contains the number of triangles per cluster, and a third vector contains the surface area per cluster."""        
         pass
@@ -1295,7 +1403,8 @@ class Scene:
     def set_sun_light(self, direction: npt.NDArray[np.float32[3,1]],
                       color: npt.NDArray[np.float32[3,1]], intensity: float):
         pass
-    def update_geometry(self, name: str, geometry: PointCloud, flags: t.Union[int, Scene.UPDATE_POINTS_FLAG]):        
+    def update_geometry(self, name: str, geometry: PointCloud, flags: t.Union[int, Scene.UPDATE_POINTS_FLAG,Scene.UPDATE_NORMALS_FLAG,Scene.UPDATE_COLORS_FLAG,Scene.UPDATE_UV0_FLAG]):
+        """目前沒有成功使用，只能先用 clear 再 add 一次，就算我是用點雲也沒有成功過"""
         pass
     def update_light_color(self, name: str, color: npt.NDArray[np.float32[3,1]]):
         """Changes a point, spot, or directional light’s color"""
@@ -1712,6 +1821,7 @@ class Window:
     def close_dialog(self):
         pass
     def post_redraw(self):
+        '''Sends a redraw message to the OS message queue'''
         pass
     def set_focus_widget(self, widget: Widget):
         pass
@@ -1725,6 +1835,7 @@ class Window:
         """
         pass
     def set_on_layout(self, callback: t.Callable[[LayoutContext], None]):
+        '''Flags window to re-layout'''
         pass
     def set_on_menu_item_activated(self, id: int, callback: t.Callable[[], None]):
         pass
