@@ -1944,9 +1944,166 @@ class MouseButton:
     @value.setter
     def value(self, value: MouseButton):
         pass
+class KeyName:
+    """Names of keys. Used by KeyEvent.key"""
+    # 加入上面注解中所有的
+    NONE: KeyName = gui.KeyName.NONE
+    BACKSPACE: KeyName = gui.KeyName.BACKSPACE
+    TAB: KeyName = gui.KeyName.TAB
+    ENTER: KeyName = gui.KeyName.ENTER
+    ESCAPE: KeyName = gui.KeyName.ESCAPE
+    SPACE: KeyName = gui.KeyName.SPACE
+    EXCLAMATION_MARK: KeyName = gui.KeyName.EXCLAMATION_MARK
+    DOUBLE_QUOTE: KeyName = gui.KeyName.DOUBLE_QUOTE
+    HASH: KeyName = gui.KeyName.HASH
+    DOLLAR_SIGN: KeyName = gui.KeyName.DOLLAR_SIGN
+    PERCENT: KeyName = gui.KeyName.PERCENT
+    AMPERSAND: KeyName = gui.KeyName.AMPERSAND
+    QUOTE: KeyName = gui.KeyName.QUOTE
+    LEFT_PAREN: KeyName = gui.KeyName.LEFT_PAREN
+    RIGHT_PAREN: KeyName = gui.KeyName.RIGHT_PAREN
+    ASTERISK: KeyName = gui.KeyName.ASTERISK
+    PLUS: KeyName = gui.KeyName.PLUS
+    COMMA: KeyName = gui.KeyName.COMMA
+    MINUS: KeyName = gui.KeyName.MINUS
+    PERIOD: KeyName = gui.KeyName.PERIOD
+    SLASH: KeyName = gui.KeyName.SLASH
+    ZERO: KeyName = gui.KeyName.ZERO
+    ONE: KeyName = gui.KeyName.ONE
+    TWO: KeyName = gui.KeyName.TWO
+    THREE: KeyName = gui.KeyName.THREE
+    FOUR: KeyName = gui.KeyName.FOUR
+    FIVE: KeyName = gui.KeyName.FIVE
+    SIX: KeyName = gui.KeyName.SIX
+    SEVEN: KeyName = gui.KeyName.SEVEN
+    EIGHT: KeyName = gui.KeyName.EIGHT
+    NINE: KeyName = gui.KeyName.NINE
+    COLON: KeyName = gui.KeyName.COLON
+    SEMICOLON: KeyName = gui.KeyName.SEMICOLON
+    LESS_THAN: KeyName = gui.KeyName.LESS_THAN
+    EQUALS: KeyName = gui.KeyName.EQUALS
+    GREATER_THAN: KeyName = gui.KeyName.GREATER_THAN
+    QUESTION_MARK: KeyName = gui.KeyName.QUESTION_MARK
+    AT: KeyName = gui.KeyName.AT
+    LEFT_BRACKET: KeyName = gui.KeyName.LEFT_BRACKET
+    BACKSLASH: KeyName = gui.KeyName.BACKSLASH
+    RIGHT_BRACKET: KeyName = gui.KeyName.RIGHT_BRACKET
+    CARET: KeyName = gui.KeyName.CARET
+    UNDERSCORE: KeyName = gui.KeyName.UNDERSCORE
+    BACKTICK: KeyName = gui.KeyName.BACKTICK    
+    A: KeyName = gui.KeyName.A
+    B: KeyName = gui.KeyName.B
+    C: KeyName = gui.KeyName.C
+    D: KeyName = gui.KeyName.D
+    E: KeyName = gui.KeyName.E
+    F: KeyName = gui.KeyName.F
+    G: KeyName = gui.KeyName.G
+    H: KeyName = gui.KeyName.H
+    I: KeyName = gui.KeyName.I
+    J: KeyName = gui.KeyName.J
+    K: KeyName = gui.KeyName.K
+    L: KeyName = gui.KeyName.L
+    M: KeyName = gui.KeyName.M
+    N: KeyName = gui.KeyName.N
+    O: KeyName = gui.KeyName.O
+    P: KeyName = gui.KeyName.P
+    Q: KeyName = gui.KeyName.Q
+    R: KeyName = gui.KeyName.R
+    S: KeyName = gui.KeyName.S
+    T: KeyName = gui.KeyName.T
+    U: KeyName = gui.KeyName.U
+    V: KeyName = gui.KeyName.V
+    W: KeyName = gui.KeyName.W
+    X: KeyName = gui.KeyName.X
+    Y: KeyName = gui.KeyName.Y
+    Z: KeyName = gui.KeyName.Z
+    LEFT_BRACE: KeyName = gui.KeyName.LEFT_BRACE
+    PIPE: KeyName = gui.KeyName.PIPE
+    RIGHT_BRACE: KeyName = gui.KeyName.RIGHT_BRACE
+    TILDE: KeyName = gui.KeyName.TILDE
+    DELETE: KeyName = gui.KeyName.DELETE
+    LEFT_SHIFT: KeyName = gui.KeyName.LEFT_SHIFT
+    RIGHT_SHIFT: KeyName = gui.KeyName.RIGHT_SHIFT
+    LEFT_CONTROL: KeyName = gui.KeyName.LEFT_CONTROL
+    RIGHT_CONTROL: KeyName = gui.KeyName.RIGHT_CONTROL
+    ALT: KeyName = gui.KeyName.ALT
+    META: KeyName = gui.KeyName.META
+    CAPS_LOCK: KeyName = gui.KeyName.CAPS_LOCK
+    LEFT: KeyName = gui.KeyName.LEFT
+    RIGHT: KeyName = gui.KeyName.RIGHT
+    UP: KeyName = gui.KeyName.UP
+    DOWN: KeyName = gui.KeyName.DOWN
+    INSERT: KeyName = gui.KeyName.INSERT
+    HOME: KeyName = gui.KeyName.HOME
+    END: KeyName = gui.KeyName.END
+    PAGE_UP: KeyName = gui.KeyName.PAGE_UP
+    PAGE_DOWN: KeyName = gui.KeyName.PAGE_DOWN
+    F1: KeyName = gui.KeyName.F1
+    F2: KeyName = gui.KeyName.F2
+    F3: KeyName = gui.KeyName.F3
+    F4: KeyName = gui.KeyName.F4
+    F5: KeyName = gui.KeyName.F5
+    F6: KeyName = gui.KeyName.F6
+    F7: KeyName = gui.KeyName.F7
+    F8: KeyName = gui.KeyName.F8
+    F9: KeyName = gui.KeyName.F9
+    F10: KeyName = gui.KeyName.F10
+    F11: KeyName = gui.KeyName.F11
+    F12: KeyName = gui.KeyName.F12
+    UNKNOWN: KeyName = gui.KeyName.UNKNOWN    
+    @property
+    def value(self)->KeyName:
+        pass
+    @value.setter
+    def value(self, value: KeyName):
+        pass
+    
 class KeyModifier:
-    pass
+    """
+    Key modifier identifiers
+    
+    - 搭配 MouseEvent.is_modifier_down() 使用
+    - 似乎不能與 KeyEvent 一起用
+    """
+    NONE: KeyModifier = gui.KeyModifier.NONE
+    SHIFT: KeyModifier = gui.KeyModifier.SHIFT
+    CTRL: KeyModifier = gui.KeyModifier.CTRL
+    ALT: KeyModifier = gui.KeyModifier.ALT
+    META: KeyModifier = gui.KeyModifier.META
+    @property
+    def value(self)->KeyModifier:
+        pass
+    @value.setter
+    def value(self, value: KeyModifier):
+        pass
 class KeyEvent:
+    """
+    Object that stores key events
+    
+    - 似乎不能與 KeyModifier 一起用，所以現在還無法有 Ctrl + Z 之類的功能
+    """
+    class Type:
+        DOWN: KeyEvent.Type = gui.KeyEvent.Type.DOWN
+        UP: KeyEvent.Type = gui.KeyEvent.Type.UP
+        @property
+        def value(self)->KeyEvent.Type:
+            pass
+        @value.setter
+        def value(self, value: KeyEvent.Type):
+            pass
+    def __call__(self, *args: Any, **kwds: Any) -> KeyEvent:
+        return gui.KeyEvent(*args, **kwds)
+    @property
+    def is_repeat(self)->bool:
+        """True if this key down event comes from a key repeat"""
+        pass
+    @property
+    def key(self)-> t.Union[int, KeyName]:
+        """This is the actual key that was pressed, not the character generated by the key. This event is not suitable for text entry"""
+        pass
+    @property
+    def type(self)->Type:
+        """Key event type"""
     pass
 class MouseEvent:
     class Type:
