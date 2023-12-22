@@ -1855,8 +1855,50 @@ class ListView(Widget):
     def set_on_selection_changed(self, callback: t.Callable[[str, bool], None]):
         """Calls f(new_val, is_double_click) when user changes selection"""
         pass
-class Dialog:
+    @property
+    def selected_index(self)->int:
+        pass
+    @selected_index.setter
+    def selected_index(self, selected_index: int):
+        pass
+    @property
+    def selected_value(self)->str:
+        pass    
+class Dialog(Widget):    
     pass
+class FileDialog(Dialog):
+    """File picker dialog"""
+    class Mode:
+        OPEN: FileDialog.Mode = gui.FileDialog.Mode.OPEN
+        SAVE: FileDialog.Mode = gui.FileDialog.Mode.SAVE
+        OPEN_DIR: FileDialog.Mode = gui.FileDialog.Mode.OPEN_DIR
+        @property
+        def value(self)->FileDialog.Mode:
+            pass
+        @value.setter
+        def value(self, value: FileDialog.Mode):
+            pass
+    def __new__(cls, *args, **kwargs):
+        return gui.FileDialog(*args, **kwargs)
+    def __init__(self, mode: Mode, title: str, theme: Theme):
+        """Creates either an open or save file dialog. The first parameter is either FileDialog.OPEN or FileDialog.SAVE. The second is the title of the dialog, and the third is the theme, which is used internally by the dialog for layout. The theme should normally be retrieved from window.theme.
+        
+        - Parameters:
+            - theme: win3D.theme
+        """
+        pass
+    def add_filter(self, extension: str, description: str):
+        """Adds a selectable file-type filter: add_filter(‘.stl’, ‘Stereolithography mesh’"""
+        pass
+    def set_on_cancel(self, callback: t.Callable[[], None]):
+        """Cancel callback; required"""
+        pass
+    def set_on_done(self, callback: t.Callable[[str], None]):
+        """Done callback; required"""
+        pass
+    def set_path(self, path: str):
+        """Sets the initial path path of the dialog"""
+        pass
 class LayoutContext:
     pass
 class Window:
