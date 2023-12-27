@@ -1031,8 +1031,10 @@ class TriangleMesh(Geometry3D):
         pass
     
     @property
-    def adjacency_list(self)->t.List[int]:
-        """Returns the adjacency list."""
+    def adjacency_list(self)->t.List[t.List[int]]:
+        """Returns the adjacency list.
+        - 例如：[0] 是 [1, 2, 95107, 97737] 表示頂點0的相鄰頂點有1, 2, 95107, 97737        
+        """
         pass
     @property
     def textures(self)->t.List[Image]:
@@ -1133,7 +1135,7 @@ class Camera:
     def set_projection3(self, intrinsics: npt.NDArray[np.float64[3,3]], near_plane: float, far_plane: float, image_width: float, image_height: float):
         """Sets the camera projection via intrinsics matrix. set_projection(intrinsics, near_place, far_plane, image_width, image_height)"""
         self.set_projection(intrinsics, near_plane, far_plane, image_width, image_height)
-    def unpromect(self, x: float, y: float, z: float, view_width: float, view_height: float)->npt.NDArray[np.float32[3,1]]:
+    def unproject(self, x: float, y: float, z: float, view_width: float, view_height: float)->npt.NDArray[np.float32[3,1]]:
         """Takes the (x, y, z) location in the view, where x, y are the number of pixels from the upper left of the view, and z is the depth value. Returns the world coordinate (x’, y’, z’)."""
         pass            
     pass
@@ -1826,7 +1828,7 @@ class Horiz(Layout1D):
         return gui.Horiz(*args, **kwargs)    
     def __init__(self, spacing: t.Union[int,float] = 0.0, margins: Margins = Margins()):
         pass
-class CollapsableVert(Widget):
+class CollapsableVert(Layout1D):
     def __new__(cls, *args, **kwargs) -> CollapsableVert:
         return gui.CollapsableVert(*args, **kwargs)    
     def __init__(cls, text: str, spacing: float = 0.0, margins: Margins = Margins()) -> CollapsableVert:
@@ -1837,6 +1839,53 @@ class CollapsableVert(Widget):
     def get_is_open(self)->bool:
         """Check if widget is open."""
         pass
+
+class RadioButton(Widget):
+    class Type:
+        HORIZ = gui.RadioButton.Type.HORIZ
+        VERT = gui.RadioButton.Type.VERT
+        @property
+        def value(self)->RadioButton.Type:
+            pass
+        @value.setter
+        def value(self, value: RadioButton.Type):
+            pass
+    def __new__(cls, *args, **kwargs) -> RadioButton:
+        return gui.RadioButton(*args, **kwargs)
+    def __init__(self, type: Type):
+        pass
+    def set_items(self, items: t.List[str]):
+        """Sets the list to display the list of items provided"""
+        pass
+    def set_on_selection_changed(self, callback: t.Callable[[int], None]):
+        """Calls f(new_idx) when user changes selection"""
+        pass
+    @property
+    def selected_index(self)->int:
+        pass
+    @selected_index.setter
+    def selected_index(self, selected_index: int):
+        pass
+    @property
+    def selected_value(self)->str:
+        pass
+    pass
+class CheckBox(Widget):
+    def __new__(cls, *args, **kwargs) -> CheckBox:
+        return gui.CheckBox(*args, **kwargs)
+    def __init__(self, text: str):
+        pass
+    def set_on_checked(self, callback: t.Callable[[bool], None]):
+        """Calls passed function when checkbox changes state"""
+        pass
+    @property
+    def checked(self)->bool:
+        pass
+    @checked.setter
+    def checked(self, checked: bool):
+        pass
+    pass    
+
     
 class Button(Widget):
     def __new__(cls, text: str) -> Self:
@@ -1865,6 +1914,16 @@ class ListView(Widget):
     def selected_value(self)->str:
         pass    
 class Dialog(Widget):    
+    pass
+class ColorEdit(Widget):
+    def __new__(cls, *args, **kwargs) -> ColorEdit:
+        return gui.ColorEdit(*args, **kwargs)
+    @property
+    def color_value(self)-> Color:
+        pass
+    @color_value.setter
+    def color_value(self, color_value: Color):
+        pass
     pass
 class FileDialog(Dialog):
     """File picker dialog"""
@@ -1956,8 +2015,15 @@ class Window:
     def is_visible(self)->bool:
         pass
     @property
-    def os_frame(self)->Rect:
+    def os_frame(self)->Rect:        
         pass
+    @os_frame.setter
+    def os_frame(self, os_frame: Rect):
+        """
+        -坑: 若要設定，必須設定 frame，只設定 frame.x 是無法生效的
+        """
+        pass
+    
     @property
     def renderer(self)->Renderer:
         pass
