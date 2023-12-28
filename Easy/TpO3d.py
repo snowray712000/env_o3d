@@ -1892,6 +1892,47 @@ class Button(Widget):
         return gui.Button(text)
     def set_on_clicked(self, callback: t.Callable[[], None]):
         pass
+class Combobox(Widget):
+    def __new__(cls, *args, **kwargs) -> Combobox:
+        return gui.Combobox(*args, **kwargs)
+    def __init__(self):
+        pass    
+    def add_item(self, text: str)->int:
+        """Adds an item to the end"""
+        pass
+    def change_item(self, indexOrtext: t.Union[int,str], newtext: str):
+        """1. Changes the text of the item at index: change_item(index, newtext)
+        2. Changes the text of the matching item: change_item(text, newtext)"""
+        pass
+    def clear_items(self):
+        """Removes all items"""
+        pass
+    def get_item(self, index: int)->str:
+        """Returns the item at the given index"""
+        pass
+    def remove_item(self, indexOrtext: t.Union[int,str]):
+        """1. Removes the first item of the given text
+        2. Removes the item at the index"""
+        pass
+    def set_on_selection_changed(self, callback: t.Callable[[str, int], None]):
+        """Calls f(str, int) when user selects item from combobox. Arguments are the selected text and selected index, respectively"""
+        pass
+    @property
+    def number_of_items(self)->int:
+        """The number of items (read-only)"""
+        pass
+    @property
+    def selected_index(self)->int:
+        """The index of the currently selected item"""
+        pass
+    @selected_index.setter
+    def selected_index(self, selected_index: int):
+        """The index of the currently selected item"""
+        pass
+    @property
+    def selected_text(self)->str:
+        """The index of the currently selected item"""
+        pass
 class ListView(Widget):
     def __new__(cls,*args, **kwargs) -> ListView:
         return gui.ListView(*args, **kwargs)
